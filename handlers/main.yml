@@ -1,5 +1,11 @@
 ---
-- name: enable consul
+- name: enable consul_systemd
+  systemd:
+    name: consul
+    enabled: yes
+    state: started
+
+- name: enable consul_sysvinit
   service:
     name: consul
     enabled: yes

@@ -126,6 +126,9 @@
     backup: yes
   when: consul_role == 'server'
 
+- debug:
+    msg: "{{ ansible_service_mgr }} {{ansible_distribution }}"
+
 - name: Copy Startup Script (systemd)
   template:
     src: consul.service.j2
@@ -135,10 +138,10 @@
     mode: 0750
     backup: no
   notify:
-    - enable consul
-  when: ansible_service_mgr == 'systemd'
+    - enable consul_systemd
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
 
-- name: Copy Startup Script (sysvinit
+- name: Copy Startup Script (sysvinit)
   template:
     src: consul_sysvinit.j2
     dest: /etc/init.d/consul
@@ -147,5 +150,5 @@
     mode: 0750
     backup: no
   notify:
-    - enable consul
-  when: ansible_service_mgr == 'sysvinit'
+    - enable consul_sysvinit
+  when: ansible_distribution =='Amazon'
