@@ -1,6 +1,7 @@
 ansible-role-consul
 ===================
 [![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-consul.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-consul)
+
 This role installs consul as either a server or a client.
 
 Requirements
