@@ -1,2 +1,2 @@
 ---
-# vars file for ansible-role-consul
+consul_zip_url: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip"

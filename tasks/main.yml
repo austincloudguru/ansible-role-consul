@@ -1,2 +1,139 @@
 ---
-# tasks file for ansible-role-consul
+- name: Create consul group
+  group:
+    name: "{{ consul_group }}"
+    gid: "{{ consul_gid }}"
+    state: present
+
+- name: Create consul user
+  user:
+    name: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    uid: "{{ consul_uid }}"
+    state: present
+
+- name: Create Configuration Directories
+  file:
+    path: /etc/consul.d
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0750
+    state: directory
+
+- name: Create ssl Directories
+  file:
+    path: /etc/consul.d/ssl
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0750
+    state: directory
+
+- name: Copy Cert Authority File
+  copy:
+    content: "{{ ca_cert }}"
+    dest: /etc/consul.d/ssl/ca.cert
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0640
+    backup: yes
+
+- name: Copy Cert File
+  copy:
+    content: "{{ consul_cert }}"
+    dest: /etc/consul.d/ssl/consul.cert
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0640
+    backup: yes
+
+- name: Copy Cert Key
+  copy:
+    content: "{{ consul_key }}"
+    dest: /etc/consul.d/ssl/consul.key
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0640
+    backup: yes
+
+- name: Create Consul Data Directory
+  file:
+    path: /var/consul
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0750
+    state: directory
+
+- name: Create Consul Directory
+  file:
+    path: /opt/consul/bin
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0750
+    state: directory
+
+- name: Create Consul Log Directory
+  file:
+    path: /var/log/consul
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0750
+    state: directory
+
+- name: Copy Server Config
+  template:
+    src: server_config.j2
+    dest: /etc/consul.d/config.json
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0640
+    backup: yes
+  when: consul_role == 'server'
+
+- name: Copy client Config
+  template:
+    src: client_config.j2
+    dest: /etc/consul.d/config.json
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0640
+    backup: yes
+  when: consul_role == 'client'
+
+
+- name: Check Version Installed
+  shell: >
+         /opt/consul/bin/consul --version|head -1 |cut -dv -f2
+  register: consul_version_check
+  changed_when: consul_version_check.stdout != consul_version
+
+- name: Download Consul Software
+  unarchive:
+    src: "{{ consul_zip_url }}"
+    dest: /opt/consul/bin
+    remote_src: yes
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0750
+  when: consul_version_check.stdout != consul_version
+
+- name: Copy Server Config
+  template:
+    src: server_config.j2
+    dest: /etc/consul.d/config.json
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0640
+    backup: yes
+  when: consul_role == 'server'
+
+- name: Copy Startup Script
+  template:
+    src: consul.service.j2
+    dest: /etc/systemd/system/consul.service
+    owner: "root"
+    group: "root"
+    mode: 0750
+    backup: no
+  notify:
+    - enable consul
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'

@@ -1,0 +1,16 @@
+{
+    "bootstrap": false,
+    "server": false,
+    "datacenter": "{{ consul_datacenter }}",
+    "data_dir": "/var/consul",
+    "encrypt": "{{ consul_encryptkey }}",
+    "log_level": "{{ consul_loglevel }}",
+    "enable_syslog": true,
+    "node_name": "{{ inventory_hostname }}",
+    "ca_file": "/etc/consul.d/ssl/ca.cert",
+    "cert_file": "/etc/consul.d/ssl/consul.cert",
+    "key_file": "/etc/consul.d/ssl/consul.key",
+    "verify_incoming": true,
+    "verify_outgoing": true,
+    "retry_join": ["provider=aws tag_key=role tag_value=consul"]
+}

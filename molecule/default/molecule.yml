@@ -5,9 +5,13 @@ driver:
   name: docker
 lint:
   name: yamllint
+  options:
+    config-file: molecule/default/yamllint.yml
 platforms:
-  - name: instance
-    image: centos:7
+  - name: ubuntu-18.04
+    image: austincloud/molecule-ubuntu-18.04
+    privileged: True
+    command: /sbin/init
 provisioner:
   name: ansible
   lint:
