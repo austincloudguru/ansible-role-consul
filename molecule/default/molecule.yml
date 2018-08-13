@@ -15,6 +15,7 @@ platforms:
   - name: amazonlinux
     image: austincloud/molecule-amazonlinux-1
     privileged: True
+    command: /sbin/init
 provisioner:
   name: ansible
   lint:

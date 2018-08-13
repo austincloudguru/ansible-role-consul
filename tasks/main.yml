@@ -139,7 +139,7 @@
     backup: no
   notify:
     - enable consul_systemd
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
+  when: ansible_service_mgr == 'systemd'
 
 - name: Copy Startup Script (sysvinit)
   template:
@@ -151,4 +151,4 @@
     backup: no
   notify:
     - enable consul_sysvinit
-  when: ansible_distribution =='Amazon'
+  when: ansible_service_mgr == 'upstart'
