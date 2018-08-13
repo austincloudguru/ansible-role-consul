@@ -136,4 +136,4 @@
     backup: no
   notify:
     - enable consul
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
+  when: ansible_service_mgr == 'systemd'
