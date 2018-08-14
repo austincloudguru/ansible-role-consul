@@ -1,4 +1,4 @@
-ansible-role-consul
+consul
 ===================
 [![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-consul.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-consul)
 
