@@ -8,10 +8,10 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - 18.04
+        - bionic
     - name: Amazon
       versions:
-        - 2018.03
+        - all
 
   galaxy_tags: [consul]
 
