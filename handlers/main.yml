@@ -4,3 +4,4 @@
     name: consul
     enabled: yes
     state: started
+  when: consul_start|bool
