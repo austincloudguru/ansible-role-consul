@@ -1,6 +1,6 @@
 ---
 - name: enable consul
-  systemd:
+  service:
     name: consul
     enabled: yes
     state: started

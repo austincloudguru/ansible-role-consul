@@ -2,7 +2,7 @@ ansible-role-consul
 ===================
 [![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-consul.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-consul)
 
-This role installs consul as either a server or a client.
+This role installs consul as either a server or a client in AWS.
 
 Requirements
 ------------
@@ -35,7 +35,11 @@ Within your playbook, you should set the following variables:
 Dependencies
 ------------
 
-None
+This role is written to run in AWS using the AWS provider for the retry_join configuration parameter using the role: consul parameter.
+
+    "retry_join": ["provider=aws tag_key=role tag_value=consul"]
+
+If you want to run it outside of AWS, you will need to update the retry_join value to use a different method.
 
 Example Playbook
 ----------------
