@@ -89,17 +89,6 @@
     backup: yes
   when: consul_role == 'server'
 
-- name: Copy client Config
-  template:
-    src: client_config.j2
-    dest: /etc/consul.d/config.json
-    owner: "{{ consul_user }}"
-    group: "{{ consul_group }}"
-    mode: 0640
-    backup: yes
-  when: consul_role == 'client'
-
-
 - name: Check Version Installed
   shell: >
          /opt/consul/bin/consul --version|head -1 |cut -dv -f2
@@ -126,8 +115,15 @@
     backup: yes
   when: consul_role == 'server'
 
-- debug:
-    msg: "{{ ansible_service_mgr }} {{ansible_distribution }}"
+- name: Copy client Config
+  template:
+    src: client_config.j2
+    dest: /etc/consul.d/config.json
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0640
+    backup: yes
+  when: consul_role == 'client'
 
 - name: Copy Startup Script (systemd)
   template:
