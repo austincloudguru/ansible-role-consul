@@ -20,6 +20,7 @@ For most people, the default variables that are set should be fine, but there ar
     consul_user:        # Default username (consul)
     consul_uid:         # Default uid (10010)
     consul_version:     # Default consul version (1.2.2)
+    consul_start:       # Start Service by Default (True)
 
 
 ### Playbook Variables
