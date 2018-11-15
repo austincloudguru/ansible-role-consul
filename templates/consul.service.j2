@@ -3,7 +3,11 @@ Description=Consul
 Documentation=https://www.consul.io/
 
 [Service]
-ExecStart=/opt/consul/bin/consul agent -config-dir=/etc/consul.d/
+PermissionsStartOnly=true
+User=consul
+Group=consul
+ExecStartPre=/bin/bash -c "/bin/systemctl set-environment HOSTNAME=$(hostname)"
+ExecStart=/opt/consul/bin/consul agent -node $HOSTNAME -config-dir=/etc/consul.d/
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536
 
