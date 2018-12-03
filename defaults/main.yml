@@ -14,4 +14,4 @@ consul_version: "1.2.3"
 consul_loglevel: "INFO"
 
 # Determines if you should start consul (for ami images)
-consul_start: True
+consul_start: true
