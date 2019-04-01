@@ -90,8 +90,13 @@
   when: consul_role == 'server'
 
 - name: Check Version Installed
-  shell: >
-         /opt/consul/bin/consul --version|head -1 |cut -dv -f2
+  shell: |
+         set -o pipefail
+         if [ -f /opt/consul/bin/consul ]; then
+             /opt/consul/bin/consul --version|awk 'NR==1{print $2}' |cut -dv -f2
+         fi
+  args:
+    executable: /bin/bash
   register: consul_version_check
   changed_when: consul_version_check.stdout != consul_version
 
