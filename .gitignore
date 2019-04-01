@@ -1,3 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
-molecule/default/tests/__pycache__/test_default.cpython-36-PYTEST.pyc
+molecule/default/tests/__pycache__/
+
