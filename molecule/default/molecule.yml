@@ -8,17 +8,14 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: ubuntu-18.04
-    image: austincloud/molecule-ubuntu-18.04
-    privileged: True
-    command: /sbin/init
-  - name: amazonlinux
-    image: austincloud/molecule-amazonlinux-1
-    privileged: True
+  - name: instance
+    image: ${MOLECULE_DISTRO}
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /sbin/init
 provisioner:
   name: ansible
 verifier:
   name: testinfra
-  lint:
-    name: flake8
+  directory: ./tests
