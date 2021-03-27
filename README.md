@@ -1,7 +1,6 @@
 consul
 ===================
-[![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-consul.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-consul)
-
+[![CI](https://github.com/austincloudguru/ansible-role-consul/workflows/CI/badge.svg?event=push)](https://github.com/austincloudguru/ansible-role-consul/actions?query=workflow%3ACI)  
 This role installs consul as either a server or a client in AWS.
 
 Requirements
