@@ -7,8 +7,6 @@ name: Molecule
     branches:
       - master
   push:
-    branches-ignore:
-      - master
 
 
 defaults:
