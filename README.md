@@ -1,8 +1,8 @@
 consul
 ===================
 [![Molecule](https://github.com/austincloudguru/ansible-role-consul/workflows/Molecule/badge.svg?event=push)](https://github.com/austincloudguru/ansible-role-consul/actions?query=workflow%3AMolecule)
-![Latest Version](https://img.shields.io/github/v/tag/austincloudguru/terraform-aws-nessus-appliance?sort=semver&label=Latest%20Version) 
-[![License](https://img.shields.io/github/license/austincloudguru/terraform-aws-nessus-appliance)](https://github.com/austincloudguru/terraform-aws-nessus-appliance/blob/master/LICENSE)
+![Latest Version](https://img.shields.io/github/v/tag/austincloudguru/ansible-role-consul?sort=semver&label=Latest%20Version) 
+[![License](https://img.shields.io/github/license/austincloudguru/ansible-role-consul)](https://github.com/austincloudguru/ansible-role-consul/blob/master/LICENSE)
 
 This role installs consul as either a server or a client in AWS.
 
