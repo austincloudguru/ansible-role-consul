@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: consul
+  namespace: austincloudguru
   author: Mark Honomichl
   description: Build a Consul server or client
   company: AustinCloudGuru
