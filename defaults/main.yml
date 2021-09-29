@@ -8,7 +8,7 @@ consul_user: "consul"
 consul_uid: "10010"
 
 # Consul Application
-consul_version: "1.10.0"
+consul_version: "1.10.3"
 
 # Consul log level
 consul_loglevel: "INFO"
