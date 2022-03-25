@@ -1,11 +1,11 @@
 ---
 - name: enable consul
-  service:
+  ansible.builtin.service:
     name: consul
     enabled: yes
 
 - name: start consul
-  service:
+  ansible.builtin.service:
     name: consul
     state: started
   when: consul_start|bool

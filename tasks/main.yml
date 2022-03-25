@@ -1,19 +1,19 @@
 ---
 - name: Create consul group
-  group:
+  ansible.builtin.group:
     name: "{{ consul_group }}"
     gid: "{{ consul_gid }}"
     state: present
 
 - name: Create consul user
-  user:
+  ansible.builtin.user:
     name: "{{ consul_user }}"
     group: "{{ consul_group }}"
     uid: "{{ consul_uid }}"
     state: present
 
 - name: Create Configuration Directories
-  file:
+  ansible.builtin.file:
     path: /etc/consul.d
     owner: "{{ consul_user }}"
     group: "{{ consul_group }}"
@@ -21,7 +21,7 @@
     state: directory
 
 - name: Create ssl Directories
-  file:
+  ansible.builtin.file:
     path: /etc/consul.d/ssl
     owner: "{{ consul_user }}"
     group: "{{ consul_group }}"
@@ -29,7 +29,7 @@
     state: directory
 
 - name: Copy Cert Authority File
-  copy:
+  ansible.builtin.copy:
     content: "{{ ca_cert }}"
     dest: /etc/consul.d/ssl/ca.cert
     owner: "{{ consul_user }}"
@@ -38,7 +38,7 @@
     backup: yes
 
 - name: Copy Cert File
-  copy:
+  ansible.builtin.copy:
     content: "{{ consul_cert }}"
     dest: /etc/consul.d/ssl/consul.cert
     owner: "{{ consul_user }}"
@@ -47,7 +47,7 @@
     backup: yes
 
 - name: Copy Cert Key
-  copy:
+  ansible.builtin.copy:
     content: "{{ consul_key }}"
     dest: /etc/consul.d/ssl/consul.key
     owner: "{{ consul_user }}"
@@ -56,7 +56,7 @@
     backup: yes
 
 - name: Create Consul Data Directory
-  file:
+  ansible.builtin.file:
     path: /var/consul
     owner: "{{ consul_user }}"
     group: "{{ consul_group }}"
@@ -64,7 +64,7 @@
     state: directory
 
 - name: Create Consul Directory
-  file:
+  ansible.builtin.file:
     path: /opt/consul/bin
     owner: "{{ consul_user }}"
     group: "{{ consul_group }}"
@@ -72,7 +72,7 @@
     state: directory
 
 - name: Create Consul Log Directory
-  file:
+  ansible.builtin.file:
     path: /var/log/consul
     owner: "{{ consul_user }}"
     group: "{{ consul_group }}"
@@ -80,7 +80,7 @@
     state: directory
 
 - name: Copy Server Config
-  template:
+  ansible.builtin.template:
     src: server_config.j2
     dest: /etc/consul.d/config.json
     owner: "{{ consul_user }}"
@@ -90,7 +90,7 @@
   when: consul_role == 'server'
 
 - name: Check Version Installed
-  shell: |
+  ansible.builtin.shell: |
          set -o pipefail
          if [ -f /opt/consul/bin/consul ]; then
              /opt/consul/bin/consul --version|awk 'NR==1{print $2}' |cut -dv -f2
@@ -101,7 +101,7 @@
   changed_when: consul_version_check.stdout != consul_version
 
 - name: Download Consul Software
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ consul_zip_url }}"
     dest: /opt/consul/bin
     remote_src: yes
@@ -111,7 +111,7 @@
   when: consul_version_check.stdout != consul_version
 
 - name: Copy Server Config
-  template:
+  ansible.builtin.template:
     src: server_config.j2
     dest: /etc/consul.d/config.json
     owner: "{{ consul_user }}"
@@ -121,7 +121,7 @@
   when: consul_role == 'server'
 
 - name: Copy client Config
-  template:
+  ansible.builtin.template:
     src: client_config.j2
     dest: /etc/consul.d/config.json
     owner: "{{ consul_user }}"
@@ -131,7 +131,7 @@
   when: consul_role == 'client'
 
 - name: Copy Startup Script (systemd)
-  template:
+  ansible.builtin.template:
     src: consul.service.j2
     dest: /etc/systemd/system/consul.service
     owner: "root"
@@ -144,7 +144,7 @@
   when: ansible_service_mgr == 'systemd'
 
 - name: Copy Startup Script (sysvinit)
-  template:
+  ansible.builtin.template:
     src: consul_sysvinit.j2
     dest: /etc/init.d/consul
     owner: "root"
