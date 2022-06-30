@@ -1,0 +1,46 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  vars:
+    consul_service: consul.service
+  vars_files:
+    - "../../defaults/main.yml"
+  tasks:
+    - name: Get the Groups
+      ansible.builtin.getent:
+        database: group
+
+    - name: Get the Users
+      ansible.builtin.getent:
+        database: passwd
+
+    - name: Verify Consul configuration exists
+      ansible.builtin.stat:
+        path: /etc/consul.d/config.json
+      register: reg_consul_config
+
+    - name: Verify Consul binary exists
+      ansible.builtin.stat:
+        path: /opt/consul/bin/consul
+      register: reg_consul_binary
+
+    - name: Verify Consul Log Directory exists
+      ansible.builtin.stat:
+        path: /var/log/consul
+      register: reg_consul_log
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert Results
+      ansible.builtin.assert:
+        that:
+          - getent_passwd.consul is defined
+          - getent_group.consul is defined
+          - reg_consul_config.stat.exists
+          - reg_consul_binary.stat.exists
+          - reg_consul_log.stat.exists
+          - reg_consul_log.stat.isdir
+          - ansible_facts.services["{{ consul_service }}"]["state"] == "running"
+        quiet: true

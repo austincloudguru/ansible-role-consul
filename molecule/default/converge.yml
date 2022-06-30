@@ -80,4 +80,4 @@
       lEhOBOqUfdiXqUszPbSsRtFpmA+hA0vT
       -----END CERTIFICATE-----
   roles:
-    - role: ansible-role-consul
+    - austincloudguru.consul
