@@ -6,7 +6,7 @@ galaxy_info:
   description: Build a Consul server or client
   company: AustinCloudGuru
   license: MIT
-  min_ansible_version: 2.6
+  min_ansible_version: "2.6"
   platforms:
     - name: Ubuntu
       versions:
