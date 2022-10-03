@@ -1,6 +1,7 @@
 ---
 skip_list:
-  - '106'
+  # - '106'
+  - template-instead-of-copy
 
 mock_roles:
   - austincloudguru.consul

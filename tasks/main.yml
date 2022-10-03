@@ -139,8 +139,8 @@
     mode: 0750
     backup: no
   notify:
-    - enable consul
-    - start consul
+    - Enable consul
+    - Start consul
   when: ansible_service_mgr == 'systemd'
 
 - name: Copy Startup Script (sysvinit)
@@ -152,6 +152,6 @@
     mode: 0750
     backup: no
   notify:
-    - enable consul
-    - start consul
+    - Enable consul
+    - Start consul
   when: ansible_service_mgr == 'upstart'
