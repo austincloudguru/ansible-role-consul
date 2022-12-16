@@ -17,15 +17,15 @@ jobs:
 
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'ansible-role-consul'
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.x'
 
@@ -38,29 +38,25 @@ jobs:
 
   molecule:
     name: Molecule
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         distro:
           - ubuntu:16.04
           - ubuntu:18.04
           - ubuntu:20.04
-          - centos:7
           - amazonlinux:2
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'ansible-role-consul'
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.x'
-
-      # - name: Install test dependencies.
-        # run: pip3 install ansible molecule[docker] docker testinfra ansible-lint
 
       - name: Install test dependencies.
         run: pip3 install -r requirements.txt

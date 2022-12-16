@@ -7,13 +7,19 @@
     "log_level": "{{ consul_loglevel }}",
     "enable_syslog": true,
     "node_name": "{{ inventory_hostname }}",
-    "ca_file": "/etc/consul.d/ssl/ca.cert",
-    "cert_file": "/etc/consul.d/ssl/consul.cert",
-    "key_file": "/etc/consul.d/ssl/consul.key",
+    "tls": {
+        "defaults": {
+            "ca_file": "/etc/consul.d/ssl/ca.cert",
+            "cert_file": "/etc/consul.d/ssl/consul.cert",
+            "key_file": "/etc/consul.d/ssl/consul.key",
+            "verify_incoming": true,
+            "verify_outgoing": true
+        }
+    },
     "client_addr": "0.0.0.0",
-    "ui": true,
-    "verify_incoming": true,
-    "verify_outgoing": true,
+    "ui_config": {
+        "enabled": true
+    },
     "retry_join": ["provider=aws tag_key=role tag_value=consul"],
     "bootstrap_expect": 3
 }

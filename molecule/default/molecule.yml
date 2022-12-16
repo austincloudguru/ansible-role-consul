@@ -11,6 +11,7 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO}
     privileged: true
+    platform: amd64
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /lib/systemd/systemd
