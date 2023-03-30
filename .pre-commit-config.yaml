@@ -1,14 +1,14 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.4.0
     hooks:
       - id: check-merge-conflict
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-json
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v6.3.0
+    rev: v6.14.3
     hooks:
       - id: ansible-lint
         files: \.(yaml|yml)$
