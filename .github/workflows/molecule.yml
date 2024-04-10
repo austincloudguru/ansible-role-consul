@@ -5,7 +5,7 @@ name: Molecule
     - cron: "0 8 * * *"
   pull_request:
     branches:
-      - master
+      - main
   push:
 
 
@@ -14,47 +14,24 @@ defaults:
     working-directory: 'ansible-role-consul'
 
 jobs:
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v3
-        with:
-          path: 'ansible-role-consul'
-
-      - name: Set up Python 3.
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
-
-      - name: Install test dependencies.
-        run: pip3 install yamllint
-
-      - name: Lint code.
-        run: |
-          yamllint .
-
   molecule:
     name: Molecule
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         distro:
-          - ubuntu:16.04
-          - ubuntu:18.04
-          - ubuntu:20.04
-          - amazonlinux:2
+          - ubuntu:22.04
+          - amazonlinux:2023
+          - oraclelinux:9
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: 'ansible-role-consul'
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 

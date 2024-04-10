@@ -1,22 +1,26 @@
 ---
 dependency:
   name: galaxy
+  options:
+    ignore-certs: true
+    ignore-errors: true
+    requirements-file: collections.yml
 driver:
-  name: docker
+  name: podman
 lint: |
   set -e
   yamllint .
   ansible-lint
 platforms:
   - name: instance
-    image: ${MOLECULE_DISTRO}
+    image: ${MOLECULE_DISTRO:-amazonlinux}
     privileged: true
-    platform: amd64
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /lib/systemd/systemd
+    platform: amd64
+    # platform: arm64v8
 provisioner:
   name: ansible
-  log: true
 verifier:
   name: ansible

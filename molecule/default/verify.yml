@@ -42,5 +42,5 @@
           - reg_consul_binary.stat.exists
           - reg_consul_log.stat.exists
           - reg_consul_log.stat.isdir
-          - ansible_facts.services["{{ consul_service }}"]["state"] == "running"
+          - ansible_facts.services["consul.service"]["state"] == "running"
         quiet: true
