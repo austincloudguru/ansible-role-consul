@@ -1,6 +1,6 @@
 consul
 ===================
-[![Molecule](https://github.com/austincloudguru/ansible-role-consul/workflows/Molecule/badge.svg?event=push)](https://github.com/austincloudguru/ansible-role-consul/actions?query=workflow%3AMolecule)
+[![Molecule](https://github.com/austincloudguru/ansible-role-consul/workflows/Molecule/badge.svg)](https://github.com/austincloudguru/ansible-role-consul/actions?query=workflow%3AMolecule) 
 ![Latest Version](https://img.shields.io/github/v/tag/austincloudguru/ansible-role-consul?sort=semver&label=Latest%20Version) 
 [![License](https://img.shields.io/github/license/austincloudguru/ansible-role-consul)](https://github.com/austincloudguru/ansible-role-consul/blob/master/LICENSE)
 
